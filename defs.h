@@ -6,6 +6,8 @@ typedef unsigned long long U64; //define new type
 #define NAME "Vice 1.0"
 #define BRD_SQ_NUM 120 //Total board square number
 
+#define MAXGAMEMOVES 2048
+
 enum { EMPTY, wP, wN, wB, wR, wQ, wK, bP, bN, bB, bR, bQ, bK}; //Game pieces
 enum { FILE_A, FILE_B, FILE_C, FILE_D, FILE_E, FILE_F, FILE_G, FILE_H, FILE_NONE }; //file definition
 enum { RANK_1, RANK_2, RANK_3, RANK_4, RANK_5, RANK_6, RANK_7, RANK_8, RANK_NONE }; //rank definition
@@ -25,6 +27,16 @@ enum { A1 = 21, B1, C1, D1, E1, F1, G1, H1,
 enum { FALSE, TRUE };
 
 enum { WKCA = 1, WQCA = 2, BKCA = 4, BQCA = 8}; //WHITE QUEEN-KING CASTLING AND BLACK
+
+typedef struct {
+
+    int move;
+    int castlePerm;
+    int enPas; //en passant
+    int fiftyMove;
+    U64 posKey; //position key
+
+} S_UNDO; //undo structure
 
 typedef struct {
 
@@ -49,6 +61,8 @@ typedef struct {
     int majPce[3]; //major pieces
     int minPce[3]; //minor pieces
 
+    S_UNDO history[MAXGAMEMOVES];
+    
 } S_BOARD; //BOARD STRUCTURE
 
 #endif
